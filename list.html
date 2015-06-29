@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Read Mark Sample</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="css/style.css" media="screen">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="js/storedb.js"></script>
+    <script src="js/my_reads.js"></script>
+    <script>
+    $(document).ready(function() {
+        var params = MyReads.getUrlParameters();
+        var pid = params.pid || '0';
+        var itemMap = MyReads.getItemMap();
+        var itemList = itemMap[pid];
+        var listHtml = '';
+        for(var i = 0; i < itemList.length; i++) {
+            var itemKey = itemList[i];
+            listHtml += '<li class="list-group-item"><a href="detail.html?pid=' + pid + '&itemKey=' + itemKey + '">子項目' + itemKey + '</a>';
+            if(!MyReads.isItemRead(itemKey)) {
+                listHtml += '<span class="badge new-mark">new</span>';
+            }
+            listHtml += '</li>';
+        }
+        $('#item_list').html(listHtml);
+    });
+    </script>
+</head>
+<body>
+
+<header class="text-center">
+    <h1>アイテム一覧（子）</h1>
+</header>
+
+<div id="content">
+    <ul id="item_list" class="list-group">
+    </ul>
+    <p class="text-center">
+        <a class="btn btn-primary" id="back_link" href="index.html">TOPへ</a>
+    </p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+body {
+    width: 640px;
+    margin: 0 auto;
+}
+
+.new-mark {
+    background-color: #D00;
+}
+
+.copyright {
+    text-align: center;
+}

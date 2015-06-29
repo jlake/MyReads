@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Read Mark Sample</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="css/style.css" media="screen">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="js/storedb.js"></script>
+    <script src="js/my_reads.js"></script>
+    <script>
+    $(document).ready(function() {
+        // アイテム一覧を更新
+        function refreshItemList() {
+            var topItems = MyReads.getItemMap();
+            var listHtml = '';
+            for(var pid in topItems) {
+                listHtml += '<li class="list-group-item"><a href="list.html?pid=' + pid + '">親項目' + pid + '</a>';
+                if(!MyReads.isTopItemRead(pid)) {
+                    listHtml += '<span class="badge new-mark">new</span>';
+                }
+                listHtml += '</li>';
+            }
+            $('#item_list').html(listHtml);
+        }
+        // 初期表示
+        refreshItemList();
+        // リセットボタン押す処理
+        $('#reset').click(function(){
+            MyReads.removeAll();
+            refreshItemList();
+        });
+    });
+    </script>
+</head>
+<body>
+
+<header class="text-center">
+    <h1>アイテム一覧（親）</h1>
+</header>
+
+<div id="content">
+    <ul id="item_list" class="list-group">
+    </ul>
+    <p class="text-center">
+        <a id="reset" class="btn btn-primary" href="javascript:void(0);">すべて未読にする（リセット）</a>
+    </p>
+</div>
+
+</body>
+</html>
